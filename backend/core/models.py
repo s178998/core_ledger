@@ -5,8 +5,10 @@ service and CLI layers.
 """
 
 from sqlalchemy import Column, Integer, String, DateTime
-from core.database import Base
+from backend.core.database import Base
 import datetime
+
+
 
 
 class User(Base):
@@ -15,8 +17,8 @@ class User(Base):
     Attributes correspond to database columns and are defined with
     SQLAlchemy Column objects so they are available on instances.
     """
-
     __tablename__ = "users"
+
     id = Column(Integer, primary_key=True, autoincrement=True)
     first_name = Column(String(50), nullable=False)
     last_name = Column(String(50), nullable=False)

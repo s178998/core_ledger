@@ -1,40 +1,17 @@
-"""Simple command-line interface for Core Ledger.
-
-This module exposes a small interactive menu used to create and view
-user entries. It intentionally avoids complex argument parsing to keep
-the demo focused and easy to test.
-
-Some features are commented out due to this being only phase one.
-For future development, features will be uncomented for the implementation of other phases
-"""
-
-from services.entry_service import UserManager
-from services.query_service import QueryService
-from core.models import User
-
+from backend.services.entry_service import UserManager
+from backend.services.query_service import QueryService
+from backend.core.models import User
 
 def main_menu() -> str:
-    """Display the main menu and return the raw user choice string."""
-
-    print("\nRCCGSCK - Entry System")
+    print("\nCORE LEDGER - CLI")
     print("-" * 40)
     print("1. Add new entry")
-    # print("2. List all entries")
-    # print("3. Look up entry")
-    # print("4. Delete all entries")
     print("2. Exit")
     print("-" * 40)
-    choice = input("Enter choice: ").strip()
-    return choice
+    return input("Enter choice: ").strip()
 
-
-def confirm_user(user: "User") -> bool:
-    """Ask the operator to confirm a User object's fields.
-
-    Returns True when the operator confirms, False otherwise.
-    """
-
-    print("\nPlease confirm the information")
+def confirm_user(user: User) -> bool:
+    print("\nPlease confirm user details:")
     print(f"First Name: {user.first_name}")
     print(f"Last Name: {user.last_name}")
     print(f"Phone: {user.phone}")
@@ -42,13 +19,12 @@ def confirm_user(user: "User") -> bool:
     print(f"T-Shirt Size: {user.tshirt_size}")
     while True:
         choice = input("Is this correct? (Y/N): ").strip().lower()
-        if choice in ["yes", "y"]:
+        if choice in ["y", "yes"]:
             return True
-        if choice in ["no", "n"]:
+        elif choice in ["n", "no"]:
             return False
         else:
-            print("Invalid input! please enter yes or no.")
-
+            print("Invalid input! Please enter Y/N.")
 
 if __name__ == "__main__":
     um = UserManager()
@@ -57,11 +33,11 @@ if __name__ == "__main__":
     while True:
         choice = main_menu()
         if choice == "1":
-            first_name = input("Firstname: ").strip()
-            last_name = input("Lastname: ").strip()
-            phone = input("Phone number: ").strip()
+            first_name = input("First Name: ").strip()
+            last_name = input("Last Name: ").strip()
+            phone = input("Phone: ").strip()
             sex = input("Sex (M/F): ").strip().upper()
-            tshirt_size = input("T-shirt size (S, M, L, XL, XXL): ").strip().upper()
+            tshirt_size = input("T-Shirt Size (S/M/L/XL/XXL): ").strip().upper()
 
             user_id = um.create_user_with_confirmation(
                 {
@@ -71,51 +47,14 @@ if __name__ == "__main__":
                     "sex": sex,
                     "tshirt_size": tshirt_size,
                 },
-                confirm_user,
+                confirm_user
             )
             if user_id:
-                print("Entry saved successfully.")
+                print("User saved successfully!")
             else:
-                print("Entry discarded. Please re-enter the information.")
-        # elif choice == "2":
-        #     all_entries = qs.get_all_entries()
-        #     if not all_entries:
-        #         print("No entries found.")
-        #     else:
-        #         print("\nAll saved entries:")
-        #         for entry in all_entries:
-        #             print(f"First Name: {entry.first_name}")
-        #             print(f"Last Name: {entry.last_name}")
-        #             print(f"Phone: {entry.phone}")
-        #             print(f"Sex: {entry.sex}")
-        #             print(f"T-Shirt Size: {entry.tshirt_size}")
-
-        # elif choice == "3":
-        #     user_id_raw = input("Enter Id to search: ").strip()
-        #     try:
-        #         user_id = int(user_id_raw)
-        #     except ValueError:
-        #         print("Please enter a valid integer id.")
-        #         continue
-        #     entry = qs.get_entry_by_id(user_id)
-        #     if not entry:
-        #         print("Entry not found.")
-        #         continue
-        #     print(f"First Name: {entry.first_name}")
-        #     print(f"Last Name: {entry.last_name}")
-        #     print(f"Phone: {entry.phone}")
-        #     print(f"Sex: {entry.sex}")
-        #     print(f"T-Shirt Size: {entry.tshirt_size}")
+                print("User discarded. Please try again.")
         elif choice == "2":
-            print("Exiting... Goodbye!")
+            print("Exiting CLI...")
             break
         else:
-            print("Invalid input! Try again.")
-
-
-
-
-
-
-
-
+            print("Invalid choice! Try again.")

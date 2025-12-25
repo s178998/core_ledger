@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCCGSCK Entry System</title>
+<link rel="stylesheet" href="user.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="page-header">
+        <div class="header-left">
+            <h1>RCCGSCK</h1>
+        </div>
+        <div class="header-right">
+            <!-- Empty for future content -->
+        </div>
+    </header>
+
+    <!-- Main container -->
+    <div class="main-container">
+        <div class="right-side">
+            <h2>RCCG Entry Registration</h2>
+            <p class="subtitle">Register for the event — all ages welcome!</p>
+
+            <form id="entryForm" class="form-card">
+
+                <!-- First Name -->
+                <div class="form-group">
+                    <div class="input-icon">
+                        <i class="fa fa-user"></i>
+                        <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
+                    </div>
+                </div>
+
+                <!-- Last Name -->
+                <div class="form-group">
+                    <div class="input-icon">
+                        <i class="fa fa-user"></i>
+                        <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
+                    </div>
+                </div>
+
+                <!-- Phone -->
+                <div class="form-group">
+                    <div class="input-icon">
+                        <i class="fa fa-phone"></i>
+                        <input type="text" id="phone" name="phone" placeholder="254XXXXXXXXX" required>
+                    </div>
+                </div>
+
+                <!-- Sex -->
+                <div class="form-group">
+                    <div class="input-icon">
+                        <i class="fa fa-venus-mars"></i>
+                        <select id="sex" name="sex" required>
+                            <option value="" disabled selected>Select Sex</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                            <option value="N">Prefer not to say</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- T-Shirt Size -->
+                <div class="form-group">
+                    <div class="input-icon">
+                        <i class="fa fa-tshirt"></i>
+                        <select id="tshirt_size" name="tshirt_size" required>
+                            <option value="" disabled selected>Select T-Shirt Size</option>
+                            <optgroup label="Baby (NB - 12M)">
+                                <option value="NB">NB</option>
+                                <option value="0-3M">0-3M</option>
+                                <option value="3-6M">3-6M</option>
+                                <option value="6-12M">6-12M</option>
+                            </optgroup>
+                            <optgroup label="Children (2T - 5T)">
+                                <option value="2T">2T</option>
+                                <option value="3T">3T</option>
+                                <option value="4T">4T</option>
+                                <option value="5T">5T</option>
+                            </optgroup>
+                            <optgroup label="Teen (XS - L)">
+                                <option value="XS">XS (4-5)</option>
+                                <option value="S">S (6-7)</option>
+                                <option value="M">M (8-10)</option>
+                                <option value="L">L (12-14)</option>
+                            </optgroup>
+                            <optgroup label="Adult (XL - XXXL)">
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                                <option value="XXXL">XXXL</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit">Submit Entry</button>
+            </form>
+
+            <div id="message"></div>
+        </div>
+    </div>
+
+<script>
+document.getElementById('entryForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const userData = {
+        first_name: document.getElementById('first_name').value,
+        last_name: document.getElementById('last_name').value,
+        phone: document.getElementById('phone').value,
+        sex: document.getElementById('sex').value,
+        tshirt_size: document.getElementById('tshirt_size').value
+    };
+
+    try {
+        const response = await fetch('http://127.0.0.1:8000/users/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(userData)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            document.getElementById('message').innerHTML = `<p class="success">Entry saved successfully!</p>`;
+            document.getElementById('entryForm').reset();
+        } else {
+            document.getElementById('message').innerHTML = `<p class="error">Error: ${result.detail}</p>`;
+        }
+    } catch (err) {
+        document.getElementById('message').innerHTML = `<p class="error">Network error: ${err}</p>`;
+    }
+});
+</script>
+</body>
+</html>
