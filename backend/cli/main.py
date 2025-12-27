@@ -1,7 +1,7 @@
 from backend.services.entry_service import UserManager
 from backend.services.query_service import QueryService
 from backend.core.models import User
-from backend.core.database import SessionLocal
+from backend.core.database import sessionlocal
 
 def main_menu() -> str:
     print("\nRCCGSCK - Entry System")
@@ -32,7 +32,7 @@ def confirm_user(user: User) -> bool:
 if __name__ == "__main__":
     # Create a single session for the CLI and inject it into services so
     # the CLI reuses one connection and closes it on exit.
-    session = SessionLocal()
+    session = sessionlocal()
     um = UserManager()
     qs = QueryService()
     um.db = session

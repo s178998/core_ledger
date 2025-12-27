@@ -105,6 +105,11 @@ Clone the repository:
 ``` bash
 git clone https://github.com/<your-username>/core_ledger.git
 cd core_ledger
+code .
+```
+To checkout a specific branch:
+``` bash
+git checkout <branch-name>
 ```
 
 
@@ -143,23 +148,20 @@ Tests cover:
 - Fake users can be seeded for testing
 
 ## Project Structure
-core-ledger/
-│
+```core-ledger/
 ├─ backend/
 │  ├─ cli/                # CLI for entries
 │  ├─ core/               # Database & models
 │  ├─ services/           # Service layer
 │  └─ __init__.py
-│
-├─ frontend/              # Web frontend
+├─ frontend/            # Web frontend
 │  └─ index.html
-│
-├─ tests/                 # Unit tests
-├─ main.py                # FastAPI entrypoint
+├─ tests/              # Test scripts
+├─ main.py             # FastAPI entrypoint
 ├─ requirements.txt
 ├─ README.md
 ├─ .gitignore
-
+```
 Author: Ayodeji Osungbohun
 Project: Core Ledger
 Phase 1: CLI-based system
