@@ -2,7 +2,7 @@
 
 from faker import Faker
 import uuid
-from tests.test_core import User, sessionlocal, engine
+from backend.tests.test_core import User, sessionlocal, engine
 
 class UserManager:
     def __init__(self):
@@ -66,7 +66,7 @@ class UserManager:
        return self.db.query(User).count()
     
 if __name__ == "__main__":
-    from tests.test_core import Base
+    from backend.tests.test_core import Base
     Base.metadata.create_all(bind=engine)
     um = UserManager()
     
