@@ -162,7 +162,7 @@ Tests cover:
 ├─ README.md
 ├─ .gitignore
 ```
-##Author: Ayodeji Osungbohun
+
 ## Author: Ayodeji Osungbohun
 ## Project: Core Ledger
 ## Phase 1: CLI-based system
