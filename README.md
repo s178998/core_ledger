@@ -165,5 +165,5 @@ Tests cover:
 
 ## Author: Ayodeji Osungbohun
 ## Project: Core Ledger
-## Phase 1: CLI-based system
-## Phase 2: CLI + Web Frontend + API integration
+# Phase 1: CLI-based system
+# Phase 2: CLI + Web Frontend + API integration
