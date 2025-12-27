@@ -142,6 +142,7 @@ Tests cover:
 - Safe session handling to prevent “database locked” errors
 - Fake users can be seeded for testing
 
+## Project Structure
 core-ledger/
 │
 ├─ backend/
